@@ -5,6 +5,7 @@ from .events.ready import OnReady
 from .router.messages_router import MessagesRouter
 la_chupa = " la chupa"
 play_video = "$play video"
+adios = "$adios"
 
 adios = "adios"
 
