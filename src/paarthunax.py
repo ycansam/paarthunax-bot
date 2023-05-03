@@ -4,7 +4,7 @@ from .events.errors import ErrorsController
 from .events.ready import OnReady
 la_chupa = " la chupa"
 play_video = "$play video"
-
+hola = "hola"
 class Paarthunax:
     def __init__(self, TOKEN, GUILD):
         self.TOKEN = TOKEN
@@ -40,6 +40,9 @@ class Paarthunax:
 
             if play_video in message.content.lower():
                 await self.MessagesController.play_video(message)
+            
+            if hola in message.content.lower():
+                await self.MessagesController.hola(message)
 
             ErrorsController.message_contains_exeption(content=message.content)
 
