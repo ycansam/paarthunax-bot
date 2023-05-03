@@ -30,7 +30,10 @@ class Paarthunax:
 
         @self.client.event
         async def on_message(message):
-            await self.MessagesController.on_message(message=message)
+            if message.author == self.client.user:
+                return
+            
+            await self.MessagesController.sucks(message=message)
 
         @self.client.event
         async def on_error(event, *args, **kwargs):

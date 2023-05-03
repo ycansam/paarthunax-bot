@@ -1,4 +1,5 @@
 class OnReady:
+    
     def __init__(self, client, library):
         self.library = library
         self.client = client
