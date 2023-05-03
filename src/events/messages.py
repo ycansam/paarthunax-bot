@@ -1,6 +1,5 @@
 from .errors import ErrorsController
 
-
 class MessagesController:
     def __init__(self, client):
         self.client = client
