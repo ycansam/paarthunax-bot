@@ -4,7 +4,7 @@ from .events.errors import ErrorsController
 from .events.ready import OnReady
 la_chupa = " la chupa"
 play_video = "$play video"
-adios = "$adios"
+adios = "adios"
 
 class Paarthunax:
     def __init__(self, TOKEN, GUILD):
