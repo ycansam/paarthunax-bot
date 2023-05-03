@@ -1,3 +1,4 @@
+
 class ErrorsController:
     def __init__(self, library):
         self.library = library
@@ -12,3 +13,4 @@ class ErrorsController:
     def message_contains_exeption(self, content):
         if content == 'raise-exception':
             raise self.library.DiscordException
+        
