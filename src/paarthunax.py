@@ -1,18 +1,22 @@
-import os
-
 import discord
-from dotenv import load_dotenv
+from .events.messages import MessagesController
+from .events.errors import ErrorsController
 
-load_dotenv()
 
-TOKEN = os.getenv('DISCORD_TOKEN')
-GUILD = os.getenv('DISCORD_GUILD')
 class Paarthunax:
     def __init__(self, TOKEN, GUILD):
         self.TOKEN = TOKEN
         self.GUILD = GUILD
+        self.init_paarthunax()
+        self.init_controllers()
+
+    def init_paarthunax(self):
         self.intents = discord.Intents.all()
         self.client = discord.Client(intents=self.intents)
+
+    def init_controllers(self):
+        self.MessagesController = MessagesController(self.client)
+        self.ErrorsController = ErrorsController(library=discord)
 
     def start(self):
         self.register_event_handlers()
@@ -27,22 +31,8 @@ class Paarthunax:
 
         @self.client.event
         async def on_message(message):
-            if message.author == self.client.user:
-                return
-
-            if 'sergi la chupa' in message.content.lower():
-                await message.channel.send('Sergi la chupa bast! 🎈🎉')
-            elif message.content == 'raise-exception':
-                raise discord.DiscordException
+            await self.MessagesController.on_message(message=message)
 
         @self.client.event
         async def on_error(event, *args, **kwargs):
-            with open('err.log', 'a') as f:
-                if event == 'on_message':
-                    f.write(f'Unhandled message: {args[0]}\n')
-                else:
-                    raise
-
-
-paarthunax = Paarthunax(TOKEN, GUILD)
-paarthunax.start()
+            await self.ErrorsController.on_error(event, args)
