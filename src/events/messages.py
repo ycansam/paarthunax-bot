@@ -20,5 +20,11 @@ class MessagesController:
         source = self.library.FFmpegPCMAudio('./hola.mp4')
         voice_client.play(source)
 
+
+    async def adios(self, message):
+        print('adios')
+        await message.channel.send('adios')
+
     async def hola(self, message):
         await message.channel.send('hola')
+
