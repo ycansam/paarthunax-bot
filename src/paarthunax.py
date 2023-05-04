@@ -2,6 +2,7 @@ import discord
 from .events.messages import MessagesController
 from .events.errors import ErrorsController
 from .events.ready import OnReady
+from .router.messages_router import MessagesRouter
 la_chupa = " la chupa"
 play_video = "$play video"
 
@@ -37,22 +38,16 @@ class Paarthunax:
 
         @self.client.event
         async def on_message(message):
+            messages_router = MessagesRouter(message)
             if message.author == self.client.user:
                 return
-
-            if la_chupa in message.content.lower():
-                await self.MessagesController.sucks(message)
-
-            if play_video in message.content.lower():
-                await self.MessagesController.play_video(message)
             
-            if hola in message.content.lower():
-                await self.MessagesController.hola(message)
+            await messages_router.use(la_chupa, self.MessagesController.sucks)
+            await messages_router.use(play_video, self.MessagesController.play_video)
+            await messages_router.use(hola, self.MessagesController.hola)
+            await messages_router.use(adios, self.MessagesController.adios)
 
-            if adios in message.content.lower():
-                await self.MessagesController.adios(message)
-
-            ErrorsController.message_contains_exeption(content=message.content)
+            self.ErrorsController.message_contains_exeption(content=message.content)
 
         @self.client.event
         async def on_error(event, *args, **kwargs):
