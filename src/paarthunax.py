@@ -3,14 +3,7 @@ from .events.messages import MessagesController
 from .events.errors import ErrorsController
 from .events.ready import OnReady
 from .router.messages_router import MessagesRouter
-la_chupa = " la chupa"
-play_video = "$play video"
-adios = "adios"
-
-adios = "adios"
-
-
-hola = "hola"
+from .endpoints.messages_endpoints import MessagesEndpoints
 
 class Paarthunax:
     def __init__(self, TOKEN, GUILD):
@@ -43,10 +36,10 @@ class Paarthunax:
             if message.author == self.client.user:
                 return
             
-            await messages_router.use(la_chupa, self.MessagesController.sucks)
-            await messages_router.use(play_video, self.MessagesController.play_video)
-            await messages_router.use(hola, self.MessagesController.hola)
-            await messages_router.use(adios, self.MessagesController.adios)
+            await messages_router.use(MessagesEndpoints.la_chupa, self.MessagesController.sucks)
+            await messages_router.use(MessagesEndpoints.play_video, self.MessagesController.play_video)
+            await messages_router.use(MessagesEndpoints.hola, self.MessagesController.hola)
+            await messages_router.use(MessagesEndpoints.adios, self.MessagesController.adios)
 
             self.ErrorsController.message_contains_exeption(content=message.content)
 
