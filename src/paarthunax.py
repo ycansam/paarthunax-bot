@@ -14,6 +14,7 @@ class Paarthunax:
 
     def init_paarthunax(self):
         self.intents = discord.Intents.all()
+        self.intents.message_content = True
         self.client = discord.Client(intents=self.intents)
 
     def init_controllers(self):

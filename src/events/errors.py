@@ -11,6 +11,7 @@ class ErrorsController:
                 raise
 
     def message_contains_exeption(self, content):
+        print(content)
         if content == 'raise-exception':
             raise self.library.DiscordException
         

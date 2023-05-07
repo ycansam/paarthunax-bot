@@ -1,7 +1,6 @@
 from .errors import ErrorsController
 from ..utils.message_utils import MessageUtils
 
-
 class MessagesController:
     def __init__(self, client, library):
         self.client = client
@@ -16,9 +15,8 @@ class MessagesController:
     async def play_video(self, message):
         print('playing video')
         voice_client = message.author.voice.channel
-        
-        source = self.library.FFmpegPCMAudio('./hola.mp4')
-        voice_client.play(source)
+        await voice_client.connect()
+      
 
     async def adios(self, message):
         print('adios')

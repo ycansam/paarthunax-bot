@@ -3,5 +3,8 @@ class MessagesRouter:
         self.message = message
 
     async def use(self, endpoint, function):
-        if endpoint in self.message.content.lower():
-            await function(self.message)
+        try:
+            if endpoint in self.message.content.lower():
+                await function(self.message)
+        except Exception as e: 
+                    print(e)
